@@ -26,50 +26,35 @@ string replaceAll(string& txt, const string& s, const string& r) {
 	return txt;
 } // replaceAll
 
+// replace styles '* *' '/ /' '_ _' by <b> </b> <i> </i> <u> </u>
 string replaceStyles(string& s) {
 
 	map <string,string> map_styles = {
-		{"'*", "<B>"}, {"*'", "</B>"},
-		{"'/", "<I>"}, {"/'", "</I>"},
-		{"'_", "<U>"}, {"_'", "</U>"}
-	}; // map€scChars
+		{"'*", "<b>"}, {"*'", "</b>"},
+		{"'/", "<i>"}, {"/'", "</i>"},
+		{"'_", "<u>"}, {"_'", "</u>"}
+	}; // map_styles
 	
 	for (auto& x: map_styles) {
 		s = replaceAll(s, x.first, x.second);
 	} // for 
 
 	return s;
-} // replaceEscChars
+} // replaceStyles
 
 /*
-string replaceLinks(string& s) {
-// work greedly
-	map <string,string> map_links = {
-		{"\\[(.+?)->([^.]+?)\\]",	"<A href=\"#$2\">$1</A>"}
-		,{"\\[(.+?)->(.+?\\..+?)\\]", "<A href=\"$2\">$1</A>"}
-		, {"# (.*)","<!-- $1 -->"}
-	}; // map_links
-
-	regex re;
-	for (auto& x: map_links) {
-		re = x.first;
-		s = regex_replace(s, re, x.second);
-	} // for 
-	
-	return s;
-} // replaceLinks
-*/
-
 typedef struct {
 	string key;
 	string val;
 } Map;
+*/
 
+// replace [link->target] by <a
 string replaceLinks(string& s) {
-
+	// map<string,string> works greedly, why ?
 	Map map_links[] = {
-		{"\\[(.+?)->([^.]+?)\\]",	"<A href=\"#$2\">$1</A>"}
-		,{"\\[(.+?)->(.+?\\..+?)\\]", "<A href=\"$2\">$1</A>"}
+		{"\\[(.+?)->([^.]+?)\\]",	"<a href=\"#$2\">$1</a>"}
+		,{"\\[(.+?)->(.+?\\..+?)\\]", "<a href=\"$2\">$1</a>"}
 		, {"# (.*)","<!-- $1 -->"}
 	}; // map_links
 
@@ -87,9 +72,9 @@ string _replaceLinks(string& s) {
 
 	regex e;
 	e = "\\[(.+?)->([^.]+?)\\]";
-	s = regex_replace(s, e, "<A href=\"#$2\">$1</A>");
+	s = regex_replace(s, e, "<a href=\"#$2\">$1</a>");
 	e = "\\[(.+?)->(.+?\\..+?)\\]";
-	s = regex_replace(s, e, "<A href=\"$2\">$1</A>");
+	s = regex_replace(s, e, "<a href=\"$2\">$1</a>");
 	
 	return s;
 } // replaceLinks
@@ -107,9 +92,9 @@ int main() {
 	text = replaceLinks(text);
 	/*
 	regex e("\\[(.+?)->([^.]+?)\\]");
-	text = regex_replace(text, e, "<A href=\"#$2\">$1</A>");
+	text = regex_replace(text, e, "<a href=\"#$2\">$1</a>");
 	e = "\\[(.+?)->(.+?\\..+?)\\]";
-	text = regex_replace(text, e, "<A href=\"$2\">$1</A>");
+	text = regex_replace(text, e, "<a href=\"$2\">$1</a>");
 	*/
 	cout << text << endl;
 

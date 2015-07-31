@@ -13,4 +13,14 @@ file:		qlib.h
 #define END cout << endl;
 
 
+// basic map, map<string, string> work greedly
+typedef struct {
+	string key;
+	string val;
+} Map;
+
+// replaceAll(txt, s, r): replace in txt all occurences of s by r
+// return txt
+string replaceAll(string&, const string&, const string&);
+
 #endif
