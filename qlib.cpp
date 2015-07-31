@@ -2,14 +2,15 @@
 project: qlam
 file:		qstr.cpp
 */
-#define TEST
 #include "qlib.h"
-
+/*
 #include <string>
 #include <iostream>
 #include <map>
 #include <regex>
+*/
 
+#define TEST
 using namespace std;
 
 // constants --------------------------------------------------------------
@@ -49,7 +50,7 @@ typedef struct {
 } Map;
 */
 
-// replace [link->target] by <a
+// replace [link->target] by <a href="target">link</a>
 string replaceLinks(string& s) {
 	// map<string,string> works greedly, why ?
 	Map map_links[] = {
