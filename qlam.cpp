@@ -50,7 +50,7 @@ void Qlam::article(string data)
 	if(line == "#substance") {
 		while(getline(inc_file, line)) {
 			if(line.empty()) break;
-			fhtml << "<p class=\"substance\">" << styles(line) << "</P>\n";
+			fhtml << "<p class=\"substance\">" << styles(line) << "</p>\n";
 		}
 	}
 	inc_file.close();
