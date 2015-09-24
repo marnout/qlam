@@ -1,4 +1,4 @@
-Qlam is a lightwheight markup language designed to be easy to publishing,editing an modifing content of a static site web. Qlam is writtend in C++ and is under GNU-GPL licence. A syntax highlight files are available for Vim and Gedit.
+Qlam is a lightwheight markup language designed to be easy to publishing,editing and modifing content of a static site web. Qlam is written in C++ and is under GNU-GPL licence. A syntax highlight files are available for Vim and Gedit.
 
 The cyle of the usage of Qlam is :
 1. Edit text with a text editor like Vim, Gedit, Emacs ...
@@ -12,7 +12,7 @@ Comment
 -------
 
 Anywhere you can use html tags.
-With Qlam comment begins by a # followed by space.
+With Qlam a comment begins by a # followed by space.
 # this is a comment
 
 Paragraphs
