@@ -143,6 +143,7 @@ Now you can edit your files
 $ vim qlm/index.qlm
 or
 $ gedit qlm/index.qlm &
-
+and run :
+qlam index
 
 
