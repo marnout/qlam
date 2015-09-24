@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Author: Mourad Arnout <contact@grognon.net> 
+<http://www.grognon.net/qlam> 
+-->
+
+<language id="qlam" _name="Qlam" version="2.0" _section="Markup">
+<metadata>
+	<property name="mimetypes">text/x-qlam</property>
+	<property name="globs">*.qlm</property>
+</metadata>
+
+<styles>
+	<style id="comment"		_name="Comment"	map-to="def:comment"/>
+	<style id="head"			_name="Head"		map-to="def:preprocessor"/>
+	<style id="header"		_name="Header"		map-to="def:type"/>
+	<style id="keywords"	_name="Keywords"	map-to="def:keyword"/>
+	<style id="emphasis"	_name="Emphasis"	map-to="def:string"/>
+	<style id="link"			_name="Link" 		map-to="def:preprocessor"/>
+	<style id="target"		_name="Target"		map-to="def:underlined"/>
+	<style id="code"			_name="Code"		map-to="def:special-char"/>
+</styles>
+
+<definitions>
+	<context id="qlam">
+	<include>
+		<!-- # comment -->
+		<context id="comment" style-ref="comment">
+			<start># </start>
+			<end>$</end>
+		</context>
+		<!-- #: target  -->
+		<context id="target" style-ref="link">
+			<start>#: </start>
+			<end>$</end>
+		</context>
+		<!-- `code| -->
+		<context id="code" style-ref="code">
+			<start>`</start>
+			<end>`</end>
+		</context>
+		<!-- #meta .... or #style ... -->
+		<context id="head" style-ref="head">
+			<prefix>^#</prefix>
+			<keyword>meta</keyword>
+			<keyword>style</keyword>
+			<keyword>title</keyword>
+			<keyword>link</keyword>
+		</context>
+		<!-- #1 Header 1 -->
+		<context id="header" style-ref="header">
+			<start>^#[1-6] </start>
+			<end>$</end>
+		</context>
+		<!-- #inclure #code #... -->
+		<context id="keywords" style-ref="keywords">
+			<prefix>^#</prefix>
+			<keyword>article</keyword>
+			<keyword>code</keyword>
+			<keyword>inc_html</keyword>
+			<keyword>menu</keyword>
+			<keyword>substance</keyword>
+			<keyword>table</keyword>
+			<keyword>:</keyword>
+			<keyword>inc_js</keyword>
+			<keyword>js</keyword>
+		</context>
+		<!-- styles *bold* /italic/ _underline_ -->
+		<context id="bold" style-ref="emphasis">
+			<match>'\*(.+?)\*'</match>
+		</context>	
+		<context id="italic" style-ref="emphasis">	
+			<match>'/(.+?)/'</match>
+		</context>	
+		<context id="underline" style-ref="emphasis">
+			<match>'_(.*?)_'</match>
+		</context>
+		<!--link [link->target] -->
+		<context id="hlink" style-ref="emphasis">
+			<match>\[(.+?)->(.+?)\]</match>
+		</context>	
+		<context id="note" style-ref="emphasis">
+			<match>#\[(.+)\]</match>
+		</context>	
+	</include>
+	</context>
+</definitions>
+</language>
