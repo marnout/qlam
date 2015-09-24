@@ -5,7 +5,7 @@ The cyle of the usage of Qlam is :
 2. Get the HTML format page by qlam article.qlm
 3. Upload the page on your site
 
-Site: http://www.grognon.net/qlam.html
+French site: http://www.grognon.net/qlam.html
 
 SYNTAX
 ======
@@ -126,5 +126,23 @@ You can html tags as you want, but you may use there shortcuts
 #style style.css
 
 See samples in grognon.net/qlm
+
+INSTALLATION
+============
+
+Create a user bin directory (If not yet) : $  mkdir ~/.local/bin
+Perhaps you must add to ~/.bashrc to the line export PATH="$HOME/.local/bin: .."
+Copy qlam : cp /where/is/qlam ~/.local/bin
+Now you can call qlam from anywhere.
+
+Make a directory for the local site, and go in it. Example :
+$ cd /data/www/grognon
+$ mkdir qlm css doc img js 
+
+Now you can edit your files
+$ vim qlm/index.qlm
+or
+$ gedit qlm/index.qlm &
+
 
 
