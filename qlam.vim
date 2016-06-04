@@ -12,6 +12,8 @@ syn region 	qlmStyle start="'/" end="/'" fold transparent
 syn region 	qlmStyle start="'\*" end="\*'" fold transparent
 syn region 	qlmStyle start="'_" end="_'" fold transparent
 syn region	qlmCode	 start="`" end="`" fold transparent
+syn region  	qlmEndTag start=+</+      end=+>+ fold transparent 
+syn region  	qlmTag start=+<[^/]+   end=+>+ fold transparent
 "syn region	qlmQuote start="#code" end="\z1" keepend
 " Avoid matching "text#text", used in /etc/disktab and /etc/gettytab
 syn match 	qlmComment	"^# .*$"
@@ -29,6 +31,7 @@ syn match	qlmBold		"'\*.\{-}\*'"
 syn match 	qlmLink		"\[.\{-}->.\{-}\]"
 syn match	qlmUnderline	"'_.\{-}_'"
 syn match	qlmCode		"`.\{-}`"
+syn region	qlmHtml	start="<" end=">"
 syn region	qlmQuote 
   \ start=+[uU]\=\z(#code\)+ end="^$" 
 
@@ -42,11 +45,12 @@ hi qlmTitle	ctermfg=red
 hi qlmCmd 	ctermfg=green
 hi qlmBold	ctermfg=yellow
 hi qlmItalic	ctermfg=yellow
-hi qlmLink	ctermfg=blue
+hi qlmLink	ctermfg=Magenta
 hi qlmUnderline	ctermfg=yellow
 hi qlmCode	ctermfg=cyan
 hi qlmQuote	ctermfg=grey
 hi qlmSubstance	ctermfg=lightCyan
+hi qlmHtml	ctermfg=Brown
 
 map <F4> :w <CR> :!qlam %< <CR>
 map <F5> :!qlam %< <CR>

@@ -14,11 +14,12 @@ Author: Mourad Arnout <contact@grognon.net>
 	<style id="comment"		_name="Comment"	map-to="def:comment"/>
 	<style id="head"			_name="Head"		map-to="def:preprocessor"/>
 	<style id="header"		_name="Header"		map-to="def:type"/>
-	<style id="keywords"	_name="Keywords"	map-to="def:keyword"/>
-	<style id="emphasis"	_name="Emphasis"	map-to="def:string"/>
+	<style id="keywords"		_name="Keywords"	map-to="def:keyword"/>
+	<style id="emphasis"		_name="Emphasis"	map-to="def:string"/>
 	<style id="link"			_name="Link" 		map-to="def:preprocessor"/>
 	<style id="target"		_name="Target"		map-to="def:underlined"/>
 	<style id="code"			_name="Code"		map-to="def:special-char"/>
+	<style id="blockcode"	_name="Code"		map-to="def:special-char"/>
 </styles>
 
 <definitions>
@@ -81,6 +82,11 @@ Author: Mourad Arnout <contact@grognon.net>
 		</context>	
 		<context id="note" style-ref="emphasis">
 			<match>#\[(.+)\]</match>
+		</content>
+		<content id="blockcode" style-ref="blockcode">
+			<start>#code</start>
+			<end>^$</end>
+			<style id="code"			_name="Code"		map-to="def:special-char"/>
 		</context>	
 	</include>
 	</context>
