@@ -2,6 +2,7 @@
 project: Qlam
 file:		qlam.h
 version: 0.1.5
+sam. juin  4 08:13:55 CEST 2016
 */
 
 #ifndef QLAM_H

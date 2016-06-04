@@ -4,6 +4,7 @@ file:		qlam.cpp
 compile
 	$ g++ qlam.pp -std=c++14 -Wfatal-errors -o qlam
 version: 0.1.5
+sam. juin  4 08:16:58 CEST 2016
 */
 
 #include "qlam.h"
