@@ -1,15 +1,15 @@
 /*
 project: Qlam
 file:		qlam.h
-version: 0.1.3
+version: 0.1.5
 */
 
 #ifndef QLAM_H
 #define QLAM_H
 
 #define PROJECT "Qlam"
-#define VERSION "0.1.3"
-#define AUTHOR "2015 Grognon <contact@grognon.net>"
+#define VERSION "0.1.5"
+#define AUTHOR "2016 Grognon <contact@grognon.net>"
 #define HEADER cout << endl <<PROJECT << "-"  << VERSION << " -- " << AUTHOR << "\n\n";
 
 
@@ -63,6 +63,8 @@ map <string, string> map_head = {
 	{"^#meta (.*)", "<meta $1>"},
 	{"^#style (.*)", 
 		"<link rel=\"stylesheet\" type=\"text/css\" href=\"css/$1\">"},
+	{"^#js (.*)", "<script src=\"js/$1.js\"></script>"},
+	{"^#link (.*)", "<link $1>"},
 	{"^#title (.*)", "<title>$1</title>"}
 }; // map_htags
 
@@ -71,11 +73,13 @@ map <string, string> map_body = {
 	{"^#:(.+?) (.*)", "<a id=\"$1\">$2</a>"},
 	{"^#([1-6]) (.*)", 
 		"<a id=\"$2\"></a>\n<h$1>$2</h$1>"},
+	{"^#date (.*)$", "<p class=\"date\">$1</p>"},
 	{"^#inc_js (.*)", "<script src=\"$1\"></script>"},
 }; // map_htags
 
 string re_cmd[] = {
-	"^#(article) ?(.*)","^#(code) ?(.*)", "^#(inc_html) (.*)",	"^#(js) (.*)", 
+	"^#(article) ?(.*)", "^#(code) ?(.*)", "^#(div) ?(.*)", 
+	"^#(inchtml) (.*)", "^#(inctoptoend) (.*)",	"^#(js) *(.*)", 
 	"^#(menu) (.*)", "^#(substance)", "^#(table) ?(.*)"
 };
 
@@ -113,7 +117,7 @@ string styles(string s)
 	return s;
 }
 
-/* Qlam =====================================================================
+/* Qlam ====================================================================
 
 
 
@@ -124,6 +128,7 @@ class Qlam
 	public:
 		string name;
 		bool verbose;
+		bool footer;
 
 		Qlam();
 		Qlam(const string&, bool);
@@ -132,9 +137,12 @@ class Qlam
 		void article(string);
 		void body();
 		void code(string);
+		void div(string);
 		void dl(string);
 		void head();
-		void inc_html(string);
+		void inchtml(string);
+		void inctoptoend(string);
+		void js(string);
 		void list(int, char, string);
 		void menu(string);
 		void substance();
@@ -148,7 +156,5 @@ class Qlam
 		regex re;
 	
 }; // class Qlam
-
-
 
 #endif
