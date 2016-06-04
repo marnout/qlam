@@ -1,0 +1,149 @@
+Qlam is a lightwheight markup language designed to be easy to publishing,editing and modifing content of a static site web. Qlam is written in C++ and is under GNU-GPL licence. A syntax highlight files are available for Vim and Gedit.
+
+The cyle of the usage of Qlam is :
+1. Edit text with a text editor like Vim, Gedit, Emacs ...
+2. Get the HTML format page by qlam article.qlm
+3. Upload the page on your site
+
+French site: http://www.grognon.net/qlam.html
+
+SYNTAX
+======
+
+Comment
+-------
+
+Anywhere you can use html tags.
+With Qlam a comment begins by a # followed by space.
+# this is a comment
+
+Paragraphs
+----------
+
+Each paragraph begins on a new line.
+
+Headings
+--------
+
+#1 Title 
+produce <h1>Title</>
+
+Text styles
+-----------
+
+'*bold*'
+'/italic/'
+'_underline_'
+You can merge : '*bold '/bold and italic*' italic /' normal
+
+Unordered list
+--------------
+
+- line 1
+- line 2
+- line 3
+
+Ordered list
+------------
+
++ Item 1
++ Item 2
++ ...
+
+You may nest lists
+
+- Line 1
+→ + Item11
+→ + Item12
+- Line 2
+- Line 3
+
+Where → is a tabulation
+
+Description list
+----------------
+
+? Word
+Description
+? Word two
+Description of word two
+
+Inline code text
+----------------
+You can insert code text on the fly by `<b>not bold</b>`
+
+Code bloc
+---------
+
+Code block begins with '#code' and ends whit a white line.
+Example:
+#code
+lftp ftp://user:passwd@ftp.grognon.net -e "mirror -R /path/grognon/"
+
+This code can be used to update your site
+
+Tables
+------
+
+A table begins with #table or #table class_of_table,
+Followed by the rows
+Ended by a white line
+
+#table
+Number | English | French
+1      | one     | un
+2      | two     | deux
+
+Link
+----
+
+Syntax : [link->target]
+Examples
+[go to page->page] link to a page located in the site
+[go to paragraph->#bookmark] link to bookmark located in the same page
+[site->http://www.grognon.net] link to url.
+
+You can add bookmark by:
+#:bookmark_id bookmark_text
+This code produce <a id="bookmark_id">bookmark_text</a>
+
+Qlam produce bookmarks top, end, and for all headings.
+
+Footnote
+--------
+
+In the text insert #[1]
+Then add to the footer
+#:1 (1)
+Description of (1).
+
+Head (of html page)
+-------------------
+
+You can html tags as you want, but you may use there shortcuts
+#meta charset='utf-8"    produce <meta charset="utf-8">
+#link rel="icon" type="image/png" href="favicon.png"
+#style style.css
+
+See samples in grognon.net/qlm
+
+INSTALLATION
+============
+
+Create a user bin directory (If not yet) : $  mkdir ~/.local/bin
+Perhaps you must add to ~/.bashrc to the line export PATH="$HOME/.local/bin: .."
+Copy qlam : cp /where/is/qlam ~/.local/bin
+Now you can call qlam from anywhere.
+
+Make a directory for the local site, and go in it. Example :
+$ cd /data/www/grognon
+$ mkdir qlm css doc img js 
+
+Now you can edit your files
+$ vim qlm/index.qlm
+or
+$ gedit qlm/index.qlm &
+and run :
+$ qlam index
+
+
