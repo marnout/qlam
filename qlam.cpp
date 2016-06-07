@@ -11,7 +11,7 @@ sam. juin  4 08:16:58 CEST 2016
 
 using namespace std;
 
-// constructor --------------------------------------------------------------
+// constructor ------------------------------------------------------------
 Qlam::Qlam()
 {
 	name = "index";
@@ -25,14 +25,14 @@ Qlam::Qlam(const string& name, bool v=false)
 } // Qlam::Qlam
 
 
-// destructor ---------------------------------------------------------------
+// destructor -------------------------------------------------------------
 Qlam::~Qlam() 
 {
 	if(fqlm.is_open()) fqlm.close();
 	if(fhtml.is_open()) fhtml.close();
 } // Qlam::~Qlam
 
-// article ------------------------------------------------------------------
+// article ----------------------------------------------------------------
 void Qlam::article(string data)
 {
 	ifstream inc_file("qlm/" + data + ".qlm");
@@ -45,11 +45,11 @@ void Qlam::article(string data)
 		if(regex_match(line, m, regex("^#title (.*)"))) break;
 	if(regex_match(line, m,  regex("^#title (.*)"))) {
 		fhtml << "<h4><a href=\"" << data << ".html\">";
-		fhtml << m[1] << "</a></h3>\n"; 
+		fhtml << m[1] << "</a></h4>\n"; 
 
 	}
-	while(getline(inc_file, line) && line != "#substance") continue;
-	if(line == "#substance") {
+	while(getline(inc_file, line) && line.find("#substance")) continue;
+	if(line.find("#substance") == 0) {
 		while(getline(inc_file, line)) {
 			if(line.empty()) break;
 			fhtml << "<p class=\"substance\">" << styles(line) << "</p>\n";
@@ -57,7 +57,7 @@ void Qlam::article(string data)
 	}
 	inc_file.close();
 }
-// code ---------------------------------------------------------------------
+// code -------------------------------------------------------------------
 void Qlam::code(string data) 
 {
 	if(data.empty())
@@ -71,23 +71,8 @@ void Qlam::code(string data)
 	}
 	fhtml << "</pre>" << endl;
 } // code
-// div ---------------------------------------------------------------------
-void Qlam::div(string data) 
-{
-	if(data.empty())
-		fhtml << "<div>" << endl;
-	else
-		fhtml << "<div class=\"" << data << "\">" << endl;
-	while(getline(fqlm, line)) {
-		if(line.empty()) break;
-		fhtml << "\t<p>" << styles(line) << "</p>" << endl;
-		// fhtml << raw(line) << endl;
-	}
-	fhtml << "</div>" << endl;
-} // div
 
-
-// inchtml -----------------------------------------------------------------
+// inchtml ----------------------------------------------------------------
 void Qlam::inchtml(string data)
 {
 	ifstream inc_file(data + ".html");
@@ -101,8 +86,8 @@ void Qlam::inchtml(string data)
 	inc_file.close();
 } //inchtml
 
-// inctoptoend -----------------------------------------------------------------
-void Qlam::inctoptoend(string data)
+// editorial ------------------------------------------------------------
+void Qlam::editorial(string data)
 {
 	ifstream inc_file(data + ".html");
 	if(!inc_file.is_open()) {
@@ -115,9 +100,9 @@ void Qlam::inctoptoend(string data)
 		fhtml << line << endl;
 	}
 	inc_file.close();
-} // inctoptoend
+} // editorial
 
-// head section of html file ------------------------------------------------
+// head section of html file ----------------------------------------------
 void Qlam::head()
 {
 	if(fqlm.is_open()) {
@@ -148,7 +133,7 @@ void Qlam::head()
 	
 } // Qlam::head
 
-// body --------------------------------------------------------------------
+// body -------------------------------------------------------------------
 void Qlam::body() 
 {
 	fhtml << "\n<body>\n<a id=\"top\"></a>\n";
@@ -161,12 +146,11 @@ void Qlam::body()
 				if(regex_match(line, m, re)) {
 					if(m[1] == "article") article(m[2]);
 					else if(m[1] == "code") code(m[2]);
-					else if(m[1] == "div") div(m[2]);
 					else if(m[1] == "inchtml") inchtml(m[2]);
-					else if(m[1] == "inctoptoend") inctoptoend(m[2]); 
+					else if(m[1] == "editorial") editorial(m[2]); 
 					else if(m[1] == "js") js(m[2]); 
 					else if(m[1] == "menu") menu(m[2]);
-					else if(m[1] == "substance") substance();
+					else if(m[1] == "substance") substance(m[2]);
 					else if(m[1] == "table") table(m[2]);
 					continue;
 				}
@@ -192,18 +176,18 @@ void Qlam::body()
 		else
 			fhtml << "<p>" << styles(line) << "</p>" << endl;
 	} // while getline
+	fhtml << "<!--end-->\n";
+	fhtml << "<a id=\"end\"></a>\n";
 	if(footer) {
 		fhtml << "<hr>\n";
 		fhtml << "Site réalisé avec <a href=\"http://www.grognon.net/qlam/\">";
 		fhtml << "Qlam</a> - ";
 		fhtml << "Contact : contact à grognon.net\n";
-		fhtml << "<!--end-->\n";
-		fhtml << "<a id=\"end\"></a>\n";
 		fhtml << "</body>\n\n</html>";
 	}
 } // body
 
-// js ----------------------------------------------------------------------
+// js ---------------------------------------------------------------------
 void Qlam::js(string data)
 {
 	if(data.empty()) {
@@ -231,7 +215,7 @@ void Qlam::js(string data)
 
 } // js
 
-// list --------------------------------------------------------------------
+// list -------------------------------------------------------------------
 void Qlam::list(int ntabs, char key, string data)
 {
 	fhtml << string(ntabs,'\t') << "<" << map_list[key] << ">\n";
@@ -265,7 +249,7 @@ void Qlam::dl(string data)
 	fhtml << "</dl>\n";
 } // dl
 
-// table ---------------------------------------------------------------------
+// table ------------------------------------------------------------------
 void Qlam::table(string data)
 {
 	if(data.empty()) fhtml << "<table>\n";
@@ -285,7 +269,7 @@ void Qlam::table(string data)
 	fhtml << "</table>\n";
 } // table
 
-// menu ---------------------------------------------------------------------
+// menu -------------------------------------------------------------------
 void Qlam::menu(string data)
 {
 	fhtml << "<!-- Menu " << data << "-->\n";
@@ -302,18 +286,22 @@ void Qlam::menu(string data)
 		cout << MSG_OPEN << "qlm/" + data << ".qlm" << "impossible\n";
 
 } // menu
-// menu ---------------------------------------------------------------------
-void Qlam::substance()
+// menu -------------------------------------------------------------------
+void Qlam::substance(string cl="substance")
 {
+	if(cl.empty()) cl = "substance";
 	fhtml << "<!-- Résumé -->\n";
+	fhtml << "<div class=\"" << cl << "\">\n";
 	do {
 		getline(fqlm, line);
 		if(line.empty()) break;
-		fhtml << "<p class=\"substance\">" << styles(line) << "</p>\n";
+		fhtml << "\t<p>" << styles(line) << "</p>\n";
+			
 	} while(true);
+	fhtml << "</div>\n";
 } // substance
 
-// qlm2html -----------------------------------------------------------------
+// qlm2html ---------------------------------------------------------------
 void Qlam::to_html()
 {
 	fqlm.open("qlm/" + name + ".qlm");
@@ -364,7 +352,8 @@ void site()
 		pos = fname.find_last_of(".");
 		if(fname.substr(pos) == ".qlm") {
 			qlm.name = fname.substr(0, pos);
-			qlm.to_html();
+			if(qlm.name != "menu" && qlm.name != "entete")
+				qlm.to_html();
 		}
 	}
 }

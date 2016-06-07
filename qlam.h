@@ -79,9 +79,9 @@ map <string, string> map_body = {
 }; // map_htags
 
 string re_cmd[] = {
-	"^#(article) ?(.*)", "^#(code) ?(.*)", "^#(div) ?(.*)", 
-	"^#(inchtml) (.*)", "^#(inctoptoend) (.*)",	"^#(js) *(.*)", 
-	"^#(menu) (.*)", "^#(substance)", "^#(table) ?(.*)"
+	"^#(article) ?(.*)", "^#(code) ?(.*)", 
+	"^#(inchtml) (.*)", "^#(editorial) (.*)",	"^#(js) *(.*)", 
+	"^#(menu) (.*)", "^#(substance) ?(.*)", "^#(table) ?(.*)"
 };
 
 // list ---------------------------------------------------------------------
@@ -142,11 +142,11 @@ class Qlam
 		void dl(string);
 		void head();
 		void inchtml(string);
-		void inctoptoend(string);
+		void editorial(string);
 		void js(string);
 		void list(int, char, string);
 		void menu(string);
-		void substance();
+		void substance(string);
 		void table(string);
 		void to_html();
 	private:
