@@ -2,7 +2,7 @@
 project: Qlam
 file:		qlam.cpp
 compile
-	$ g++ qlam.pp -std=c++14 -Wfatal-errors -o qlam
+	g++ qlam.cpp -std=c++14 -Wfatal-errors -o qlam
 version: 0.1.5
 sam. juin  4 08:16:58 CEST 2016
 */
@@ -180,9 +180,8 @@ void Qlam::body()
 	fhtml << "<a id=\"end\"></a>\n";
 	if(footer) {
 		fhtml << "<hr>\n";
-		fhtml << "Site réalisé avec <a href=\"http://www.grognon.net/qlam/\">";
+		fhtml << "Site réalisé avec <a href=\"http://arad.free.fr/qlam/\">";
 		fhtml << "Qlam</a> - ";
-		fhtml << "Contact : contact à grognon.net\n";
 		fhtml << "</body>\n\n</html>";
 	}
 } // body

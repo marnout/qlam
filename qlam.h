@@ -10,7 +10,7 @@ sam. juin  4 08:13:55 CEST 2016
 
 #define PROJECT "Qlam"
 #define VERSION "0.1.5"
-#define AUTHOR "2016 Grognon <contact@grognon.net>"
+#define AUTHOR "2016 marnout"
 #define HEADER cout << endl <<PROJECT << "-"  << VERSION << " -- " << AUTHOR << "\n\n";
 
 

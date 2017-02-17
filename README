@@ -5,7 +5,7 @@ The cyle of the usage of Qlam is :
 2. Get the HTML format page by qlam article.qlm
 3. Upload the page on your site
 
-French site: http://www.grognon.net/qlam.html
+French site: http://arad.free.fr/qlam.html
 
 SYNTAX
 ======
@@ -101,7 +101,7 @@ Syntax : [link->target]
 Examples
 [go to page->page] link to a page located in the site
 [go to paragraph->#bookmark] link to bookmark located in the same page
-[site->http://www.grognon.net] link to url.
+[site->http://arad.free.fr] link to url.
 
 You can add bookmark by:
 #:bookmark_id bookmark_text
