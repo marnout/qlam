@@ -180,8 +180,8 @@ void Qlam::body()
 	fhtml << "<a id=\"end\"></a>\n";
 	if(footer) {
 		fhtml << "<hr>\n";
-		fhtml << "Site réalisé avec <a href=\"http://arad.free.fr/qlam/\">";
-		fhtml << "Qlam</a> - ";
+		fhtml << "Réalisé avec <a href=\"http://arad.free.fr/qlam/\">";
+		fhtml << "Qlam</a> - LGPL";
 		fhtml << "</body>\n\n</html>";
 	}
 } // body
@@ -365,6 +365,7 @@ void help(string prog)
 	cout << "\t-a convertit tous les fichiers qlm du site\n";
 	cout << "\t-h cette aide\n";
 	cout << "\t-v verbose\n";
+	cout << "\t-l lettre i.e. n'imprime pas le footer\n";
 }
 
 
@@ -372,7 +373,7 @@ int main(int argc, char * argv[])
 {
 	HEADER
 	if (argc < 2) {
-		cout << "Usage: " << argv[0] << "[-a] [-v] [FILE ...]";
+		cout << "Usage: " << argv[0] << "[-a] [-h] [-v] [-l] [FILE ...]\n";
 		exit(EXIT_FAILURE);
 	} // if no args
 
@@ -397,7 +398,7 @@ int main(int argc, char * argv[])
 				break;
 			default: /* '?' */
 				cout << "Usage: " << argv[0];
-				cout << "[-a] [-h] [-v] [FILE ...]\n";
+				cout << "[-a] [-h] [-v] [-l] [FILE ...]\n";
 				exit(EXIT_FAILURE);
 		} // switch
 	} // while getopt
