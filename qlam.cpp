@@ -194,7 +194,7 @@ void Qlam::js(string data)
 		while(getline(fqlm, line)) {
 			if(line.empty()) break;
 			//fhtml << "\t<p>" << line << "</p>" << endl;
-			fhtml << raw(line) << endl;
+			fhtml << line << endl;
 		}
 		fhtml << "</script>" << endl;
 
@@ -251,8 +251,9 @@ void Qlam::dl(string data)
 // table ------------------------------------------------------------------
 void Qlam::table(string data)
 {
-	if(data.empty()) fhtml << "<table>\n";
-	else fhtml << "<table class=\"" << data << "\">\n";
+	//if(data.empty()) fhtml << "<table>\n";
+	//else fhtml << "<table class=\"" << data << "\">\n";
+	fhtml << "<table " << data << ">\n";
 	getline(fqlm, line);
 	line = styles(line);
 	fhtml << "\t<tr>\n";
