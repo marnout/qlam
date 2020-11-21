@@ -26,36 +26,42 @@ syn keyword	qlmCmd #menu #substance
 syn match 	qlmHead		"^#meta .*$"
 syn match	qlmHead		"^#style .*$"
 syn match	qlmHead		"^#link .*$"
-syn match	qlmItalic	"'\/.\{-}\/'"	
-syn match	qlmBold		"'\*.\{-}\*'"	
+syn match	qlmHead		"^#title .*$"
+syn match	qlmHead		"^#js .*$"
 syn match 	qlmLink		"\[.\{-}->.\{-}\]"
-syn match	qlmUnderline	"'_.\{-}_'"
-syn match	qlmCode		"`.\{-}`"
+syn match	qlmItalic	".\{-}"
+syn match	qlmBold		".\{-}"
+syn match	qlmCode		".\{-}"
+syn match	qlmUnderline	".\{-}"
 syn region	qlmHtml	start="<" end=">"
 syn region	qlmQuote 
-  \ start=+[uU]\=\z(#code\)+ end="^$" 
+  \ start=+[uU]\=\z\(#code\)+ end="^$" 
+
+syn region	qlmJs
+  \ start=+[uU]\=\z\(#js\)+ end="^$" 
 
 syn region	qlmSubstance
-  \ start=+[uU]\=\z(#substance\)+ end="^$" 
+  \ start=+[uU]\=\z\(#substance\)+ end="^$" 
 " Define the default highlighting.
 " Only used when an item doesn't have highlighting yet
 hi qlmComment	ctermfg=grey
-hi qlmHead	ctermfg=grey
-hi qlmTitle	ctermfg=red
-hi qlmCmd 	ctermfg=green
-hi qlmBold	ctermfg=yellow
-hi qlmItalic	ctermfg=yellow
-hi qlmLink	ctermfg=Magenta
-hi qlmUnderline	ctermfg=yellow
-hi qlmCode	ctermfg=cyan
-hi qlmQuote	ctermfg=grey
+hi qlmHead		ctermfg=grey
+hi qlmTitle		ctermfg=white	    ctermbg=black cterm=bold,underline
+hi qlmCmd 		ctermfg=lightgrey
+hi qlmBold		ctermfg=White	    cterm=bold
+hi qlmItalic	ctermfg=white	    cterm=italic
+hi qlmLink		ctermfg=white	    cterm=bold
+hi qlmUnderline	ctermfg=white	    cterm=underline
+hi qlmCode		ctermfg=white	    ctermbg=240
+hi qlmJs		ctermfg=lightgrey
+hi qlmQuote		ctermfg=grey
 hi qlmSubstance	ctermfg=lightCyan
-hi qlmHtml	ctermfg=Brown
+hi qlmHtml	ctermfg=lightgrey
 
-map <F4> :w <CR> :!qlam %< <CR>
+map <F4> :w <bar> :!qlam %< <CR>
 map <F5> :!qlam %< <CR>
 
 
-let b:current_syntax = "qlm"
+let b:current_syntax = "qlam"
 
-" vim: ts=8 sw=2
+
